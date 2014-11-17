@@ -19,16 +19,16 @@
   def create 
     @user = User.new(user_params)
     if @user.save
-      log_in @user
-      flash[:success] = "Welome,Dude :P"
-      redirect_to @user
+      @user.send_activation_email
+      flash[:info] = "Check your email,dude, and click the activate link."
+      redirect_to root_url
     else
       render 'new'
     end
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]) 
   end
 
   def update
